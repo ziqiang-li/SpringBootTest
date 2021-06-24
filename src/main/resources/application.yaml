@@ -1,0 +1,4 @@
+logging:
+  level:
+    com.example.demo: debug
+  enable-api-log: true
