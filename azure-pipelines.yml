@@ -22,5 +22,5 @@ steps:
   inputs:
     SourceFolder: '$(agent.builddirectory)'
     Contents: '**'
-    TargetFolder: '$(build.artifactstagingdirectory)'
+    TargetFolder: '$(System.DefaultWorkingDirectory)/_ziqiang-li.SpringBootTest'
     CleanTargetFolder: true
