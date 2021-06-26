@@ -50,6 +50,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Enumeration;
 
 /**
  * 请求日志输出
@@ -88,9 +89,16 @@ public class WebLogFilter implements Filter {
 
         sb.append("\n\nURL: " + requestWrapper.getRequestURL().toString()).append("\n");
         sb.append("方法: " + requestWrapper.getMethod()).append("\n");
-        if (request.getContentType() != null) {
-            sb.append("RequestContentType: " + request.getContentType()).append("\n");
+        Enumeration<String> headerNames = requestSer.getHeaderNames();
+        String headerName;
+        sb.append("HTTP头:\n");
+        while(headerNames.hasMoreElements()){
+            headerName = headerNames.nextElement();
+            sb.append(headerName + ": " + requestSer.getHeader(headerName) + "\n");
         }
+//        if (request.getContentType() != null) {
+//            sb.append("RequestContentType: " + request.getContentType()).append("\n");
+//        }
         sb.append("参数: " + requestWrapper.getBody()).append("\n");
         chain.doFilter(requestWrapper, responseWrapper);
         // 获取response的相关数据
